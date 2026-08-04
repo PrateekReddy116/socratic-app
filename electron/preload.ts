@@ -10,4 +10,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.removeAllListeners('screen-captured');
     ipcRenderer.on('screen-captured', (_event, value) => callback(value));
   },
+  onRequestHide: (callback: () => void) => {
+    ipcRenderer.removeAllListeners('request-hide');
+    ipcRenderer.on('request-hide', () => callback());
+  },
 });

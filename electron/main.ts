@@ -36,7 +36,7 @@ function createWindow() {
     width: winWidth,
     height: winHeight,
     x: Math.floor((screenWidth - winWidth) / 2),
-    y: Math.floor((screenHeight - winHeight) / 3),
+    y: 0,
     frame: false,
     transparent: true,
     alwaysOnTop: true,
@@ -58,14 +58,14 @@ function createWindow() {
   }
 
   mainWindow.on('blur', () => {
-    hideOverlay();
+    requestHideOverlay();
   });
 }
 
 function toggleOverlay() {
   if (!mainWindow) return;
   if (mainWindow.isVisible()) {
-    hideOverlay();
+    requestHideOverlay();
   } else {
     void showOverlay();
   }
@@ -83,6 +83,11 @@ async function showOverlay() {
   if (screenshotBase64) {
     mainWindow.webContents.send('screen-captured', screenshotBase64);
   }
+}
+
+function requestHideOverlay() {
+  if (!mainWindow) return;
+  mainWindow.webContents.send('request-hide');
 }
 
 function hideOverlay() {

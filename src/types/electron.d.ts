@@ -7,6 +7,7 @@ export interface ElectronAPI {
   }>;
   onWindowVisibilityChange: (callback: (visible: boolean) => void) => void;
   onScreenCaptured: (callback: (base64Image: string) => void) => void;
+  onRequestHide: (callback: () => void) => void;
 }
 
 declare global {
